@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <div class="scrolling-background"></div>
+        <div id="score">Score: 0</div>
+        <div id="level">Level: 1</div>
+        <div class="spaceship" id="spaceship"></div>
+    </div>
+    <div id="pause-overlay">Jeu en pause</div>
+    <div id="controls">
+        <button id="start-button">Start</button>
+        <button id="pause-button">Pause</button>
+        <button id="stop-button">Stop</button>
+        <button id="keyboard-button">Disposition clavier</button>
+    </div>
+    <div id="controls-config">
+        <h3>Configurer les commandes</h3>
+        <div class="controls">
+          <div>
+            <button id="up-control">▲</button>
+          </div>
+          <div>
+            <button id="left-control">◀</button>
+            <button id="down-control">▼</button>
+            <button id="right-control">▶</button>
+          </div>
+          <div>
+            <button id="shootBlue-control">Tire Bleu</button>
+            <button id="shootPink-control">Tire Rose</button>
+          </div>
+        </div>
+        <p id="error-message" class="hidden"></p>
+      </div>
+      
+    
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
