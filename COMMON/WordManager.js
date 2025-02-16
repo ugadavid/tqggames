@@ -52,7 +52,7 @@ export class WordManager {
     async loadWordsFromAPI(id_categorie) {
         try {
             alert("Appel de l'API->loadWordsFromAPI("+id_categorie+")")
-            const response = await fetch(`http://localhost/api/getWords.php?categorieId=${encodeURIComponent(id_categorie)}`);
+            const response = await fetch(`https://tqgapi.skys.fr/api/getWords.php?categorieId=${encodeURIComponent(id_categorie)}`);
             const wordsData = await response.json();
         
             if (wordsData.error) {
