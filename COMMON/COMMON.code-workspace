@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../SI"
+		},
+		{
+			"path": "../TAT"
+		},
+		{
+			"path": "../DetD"
+		},
+		{
+			"path": "../../../../../../../../Programmes/php/eds-www"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "DetD"
+	}
+}

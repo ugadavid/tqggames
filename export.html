@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export IndexedDB en JSON</title>
+</head>
+<body>
+    <h1>Export IndexedDB en JSON</h1>
+    <button onclick="exporterJSON()">Exporter les données</button>
+    <pre id="output"></pre>
+
+    <script>
+        function exporterJSON() {
+            const request = indexedDB.open("MaBase", 1);
+
+            request.onsuccess = (event) => {
+                const db = event.target.result;
+                const transaction = db.transaction(["utilisateurs"], "readonly");
+                const store = transaction.objectStore("utilisateurs");
+
+                const getAllRequest = store.getAll();
+                getAllRequest.onsuccess = () => {
+                    const data = getAllRequest.result;
+                    const jsonData = JSON.stringify(data, null, 2);
+
+                    // Affichage des données JSON dans la page
+                    document.getElementById("output").textContent = jsonData;
+
+                    // Création d'un lien de téléchargement
+                    const blob = new Blob([jsonData], { type: "application/json" });
+                    const a = document.createElement("a");
+                    a.href = URL.createObjectURL(blob);
+                    a.download = "MaBase_export.json";
+                    a.textContent = "Télécharger le fichier JSON";
+                    document.body.appendChild(a);
+                };
+
+                getAllRequest.onerror = (event) => {
+                    console.error("Erreur lors de la récupération des données :", event.target.error);
+                };
+            };
+
+            request.onerror = (event) => {
+                console.error("Erreur d'ouverture de la base IndexedDB :", event.target.error);
+            };
+        }
+    </script>
+</body>
+</html>

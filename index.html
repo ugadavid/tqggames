@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello IndexedDB</title>
+</head>
+<body>
+    <h1>Hello IndexedDB !</h1>
+    <button onclick="ajouterUtilisateur()">Ajouter un utilisateur</button>
+    <button onclick="afficherUtilisateurs()">Afficher les utilisateurs</button>
+    <script>
+        let db;
+
+
+        /*window.onload = () => {
+            console.log("Page chargée !");
+        };*/
+
+        
+        // Ouvrir (ou créer) la base IndexedDB
+        const request = indexedDB.open("MaBase", 1);
+
+        request.onupgradeneeded = (event) => {
+            db = event.target.result;
+            if (!db.objectStoreNames.contains("utilisateurs")) {
+                const store = db.createObjectStore("utilisateurs", { keyPath: "id", autoIncrement: true });
+                console.log("Table 'utilisateurs' créée !");
+            }
+        };
+
+        request.onsuccess = (event) => {
+            db = event.target.result;
+            console.log("Base IndexedDB ouverte !");
+        };
+
+        request.onerror = (event) => {
+            console.error("Erreur IndexedDB :", event.target.error);
+        };
+
+        // Fonction pour ajouter un utilisateur
+        function ajouterUtilisateur() {
+            const transaction = db.transaction("utilisateurs", "readwrite");
+            const store = transaction.objectStore("utilisateurs");
+
+            const utilisateur = { nom: "David", email: "GPT@ia.com" };
+            store.add(utilisateur);
+
+            transaction.oncomplete = () => console.log("Utilisateur ajouté !");
+            transaction.onerror = (event) => console.error("Erreur :", event.target.error);
+        }
+
+        // Fonction pour récupérer et afficher les utilisateurs
+        function afficherUtilisateurs() {
+            const transaction = db.transaction("utilisateurs", "readonly");
+            const store = transaction.objectStore("utilisateurs");
+
+            const request = store.getAll();
+            request.onsuccess = () => console.log("Utilisateurs :", request.result);
+            request.onerror = (event) => console.error("Erreur de lecture :", event.target.error);
+        }
+    </script>
+</body>
+</html>
