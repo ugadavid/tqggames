@@ -1,5 +1,5 @@
 import { Enemy } from './Enemy.js';
-import { WordManager } from './WordManager.js';
+import { WordManager } from '../COMMON/WordManager.js';
 import { Sound } from './Sound.js';
 
 export class EnemyManager {
